@@ -82,41 +82,31 @@ public int BusquedaBinaria(int[] A, int x) {
     Practica5 hola = new Practica5();
     System.out.println("Programa los metodos solicitados");
 
-    // // Resultados para Busqueda Secuencial
-    // System.out.println("\nBusqueda Secuencial \n"); 
-    // System.out.println(busquedaSecuencial(hola.a1,29));
-    // System.out.println(busquedaSecuencial(hola.a2,22));
-    // System.out.println(busquedaSecuencial(hola.a3,27));
-    // System.out.println(busquedaSecuencial(hola.a4,28));
-    // System.out.println(busquedaSecuencial(hola.a5,35));
-    // System.out.println(busquedaSecuencial(hola.a6,29));
-    // System.out.println(busquedaSecuencial(hola.a7,33));
-    // System.out.println(busquedaSecuencial(hola.a8,32));
-    // System.out.println(busquedaSecuencial(hola.a9,45));
-    // System.out.println(busquedaSecuencial(hola.a10,72));
+    // Resultados para Busqueda Secuencial
+    System.out.println("\nBusqueda Secuencial \n"); 
+    System.out.println(busquedaSecuencial(hola.a1,29));
+    System.out.println(busquedaSecuencial(hola.a2,22));
+    System.out.println(busquedaSecuencial(hola.a3,27));
+    System.out.println(busquedaSecuencial(hola.a4,28));
+    System.out.println(busquedaSecuencial(hola.a5,35));
+    System.out.println(busquedaSecuencial(hola.a6,29));
+    System.out.println(busquedaSecuencial(hola.a7,33));
+    System.out.println(busquedaSecuencial(hola.a8,32));
+    System.out.println(busquedaSecuencial(hola.a9,45));
+    System.out.println(busquedaSecuencial(hola.a10,72));
 
-    // // Resultados para Busqueda Binaria
-    // System.out.println("\nBusqueda Binaria \n"); 
-    // System.out.println(hola.BusquedaBinaria(hola.a1, hola.a1[hola.a1.length-1]));
-    // System.out.println(hola.BusquedaBinaria(hola.a2, hola.a2[hola.a2.length-1]));
-    // System.out.println(hola.BusquedaBinaria(hola.a3, hola.a3[hola.a3.length-1]));
-    // System.out.println(hola.BusquedaBinaria(hola.a4, hola.a4[hola.a4.length-1]));
-    // System.out.println(hola.BusquedaBinaria(hola.a5, hola.a5[hola.a5.length-1]));
-    // System.out.println(hola.BusquedaBinaria(hola.a6, hola.a6[hola.a6.length-1]));
-    // System.out.println(hola.BusquedaBinaria(hola.a7, hola.a7[hola.a7.length-1]));
-    // System.out.println(hola.BusquedaBinaria(hola.a8, hola.a8[hola.a8.length-1]));
-    // System.out.println(hola.BusquedaBinaria(hola.a9, hola.a9[hola.a9.length-1]));
-    // System.out.println(hola.BusquedaBinaria(hola.a10, hola.a10[hola.a10.length-1]));
-    System.out.println(hola.a1.length);
-    System.out.println(hola.a2.length);
-    System.out.println(hola.a3.length);
-    System.out.println(hola.a4.length);
-    System.out.println(hola.a5.length);
-    System.out.println(hola.a6.length);
-    System.out.println(hola.a7.length);
-    System.out.println(hola.a8.length);
-    System.out.println(hola.a9.length);
-    System.out.println(hola.a10.length);
+    // Resultados para Busqueda Binaria
+    System.out.println("\nBusqueda Binaria \n"); 
+    System.out.println(hola.BusquedaBinaria(hola.a1, hola.a1[hola.a1.length-1]));
+    System.out.println(hola.BusquedaBinaria(hola.a2, hola.a2[hola.a2.length-1]));
+    System.out.println(hola.BusquedaBinaria(hola.a3, hola.a3[hola.a3.length-1]));
+    System.out.println(hola.BusquedaBinaria(hola.a4, hola.a4[hola.a4.length-1]));
+    System.out.println(hola.BusquedaBinaria(hola.a5, hola.a5[hola.a5.length-1]));
+    System.out.println(hola.BusquedaBinaria(hola.a6, hola.a6[hola.a6.length-1]));
+    System.out.println(hola.BusquedaBinaria(hola.a7, hola.a7[hola.a7.length-1]));
+    System.out.println(hola.BusquedaBinaria(hola.a8, hola.a8[hola.a8.length-1]));
+    System.out.println(hola.BusquedaBinaria(hola.a9, hola.a9[hola.a9.length-1]));
+    System.out.println(hola.BusquedaBinaria(hola.a10, hola.a10[hola.a10.length-1]));
 
   }
 }

@@ -1,21 +1,21 @@
-
-/**
- * Clase de prueba para la clase Grafica.
- * Permite demostrar el uso de la clase Grafica y su algoritmo BFS.
- */
 import java.util.LinkedList;
 
+/**
+ * Clase de prueba para la implementación de la estructura de datos de una gráfica.
+ */
 public class PruebaGrafica {
+
     /**
-     * Método principal que crea una instancia de Grafica, realiza operaciones
-     * como insertar vértices y aristas, imprime información sobre la gráfica,
-     * aplica el algoritmo BFS y muestra la información actualizada.
+     * Método principal que realiza la prueba de la gráfica con vértices de tipo entero.
      *
-     * @param args Los argumentos de la línea de comandos (no se utilizan).
+     * @param args Argumentos de la línea de comandos (no se utilizan en esta prueba).
      */
     public static void main(String[] args) {
+        // Creación de una instancia de la gráfica con vértices de tipo entero
         Grafica<Integer> g = new Grafica<>();
+
         try {
+            // Inserción de vértices y aristas en la gráfica
             g.insertarVertice("v1", 5);
             g.insertarVertice("v2", 7);
             g.insertarVertice("v3", 9);
@@ -39,6 +39,8 @@ public class PruebaGrafica {
             g.insertarArista("v7", "v9");
             g.insertarArista("v8", "v9");
             g.insertarArista("v9", "v2");
+
+            // Impresión de la información de la gráfica antes de aplicar DFS
             System.out.println("G := (V, E), donde");
             LinkedList<Grafica<Integer>.Vertice> vertices = g.darVertices();
             LinkedList<Grafica<Integer>.Arista> aristas = g.darAristas();
@@ -67,10 +69,11 @@ public class PruebaGrafica {
             System.out.println("El orden de G es " + orden);
             System.out.println("El tamano de G es " + tamano);
 
-            g.algoritmoBFS("v5");
+            // Aplicación del algoritmo DFS a partir del vértice "v5"
+            g.algoritmoDFS("v5");
 
-            // Después de g.algoritmoBFS("v5");
-            System.out.println("Vértices de la gráfica después de aplicar BFS");
+            // Impresión de la información de la gráfica después de aplicar DFS
+            System.out.println("Vértices de la gráfica después de aplicar DFS");
             System.out.print("  V := { ");
             int i1 = 1;
             for (Grafica.Vertice v : vertices) {
@@ -83,6 +86,7 @@ public class PruebaGrafica {
             }
 
         } catch (Exception error) {
+            // Captura y muestra cualquier excepción lanzada durante la prueba
             System.out.println(error);
         }
     }

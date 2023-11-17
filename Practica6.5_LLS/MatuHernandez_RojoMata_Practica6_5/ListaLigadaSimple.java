@@ -7,6 +7,9 @@ import java.util.Iterator;
  */
 public class ListaLigadaSimple<T> implements Coleccion<T> {
 
+    /**
+     * Clase interna que representa un nodo en la lista enlazada simple.
+     */
     private class Nodo {
         /**
          * Elemento almacenado en el nodo.
@@ -33,7 +36,7 @@ public class ListaLigadaSimple<T> implements Coleccion<T> {
          *
          */
         public T darElemento(){
-          return this.elemento;
+            return this.elemento;
         }
 
         /**
@@ -41,7 +44,7 @@ public class ListaLigadaSimple<T> implements Coleccion<T> {
          *
          */
         public Nodo darSiguiente(){
-          return this.siguiente;
+            return this.siguiente;
         }
 
         /**
@@ -50,7 +53,7 @@ public class ListaLigadaSimple<T> implements Coleccion<T> {
          * @param elemento El elemento a almacenar en el nodo.
          */
         public void modificaElemeto(T elem){
-          this.elemento = elem;
+            this.elemento = elem;
         }
 
         /**
@@ -59,15 +62,14 @@ public class ListaLigadaSimple<T> implements Coleccion<T> {
          * @param sig nodo a cambiar.
          */
         public void modificaSiguiente(Nodo sig){
-          this.siguiente = sig;
+            this.siguiente = sig;
         }
     }
 
     /**
-    * Un iterador para recorrer la lista enlazada simple.
-    */
+     * Un iterador para recorrer la lista enlazada simple.
+     */
     private class IteradorListaSimple implements Iterator<T> {
-
         /**
          * El nodo siguiente al que se moverá el iterador.
          */
@@ -101,18 +103,18 @@ public class ListaLigadaSimple<T> implements Coleccion<T> {
         }
     }
 
-
+    // Atributos de la clase principal
     private Nodo cabeza;
-
     private Nodo rabo;
-
     private int longitud;
 
-    public ListaLigadaSimple(){
-      //Aquí va tu código
-      cabeza = null; 
-      rabo = null; 
-      longitud = 0; 
+    /**
+     * Constructor de la lista enlazada simple.
+     */
+    public ListaLigadaSimple() {
+        cabeza = null;
+        rabo = null;
+        longitud = 0;
     }
 
     /**
@@ -123,81 +125,89 @@ public class ListaLigadaSimple<T> implements Coleccion<T> {
         return new IteradorListaSimple();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void insertar(T elemento) throws IllegalArgumentException {
-      //Aquí va tu código
-      if (elemento == null){
-        throw new IllegalArgumentException("El elemento no puede ser nulo");
-      }
+        if (elemento == null){
+            throw new IllegalArgumentException("El elemento no puede ser nulo");
+        }
 
-      Nodo nodoAgregado = new Nodo(elemento); 
-      Nodo cabezaAnterior = this.cabeza; 
-      nodoAgregado.siguiente = cabezaAnterior;
-      this.cabeza = nodoAgregado; 
-      this.longitud ++;
+        Nodo nodoAgregado = new Nodo(elemento);
+        Nodo cabezaAnterior = this.cabeza;
+        nodoAgregado.siguiente = cabezaAnterior;
+        this.cabeza = nodoAgregado;
+        this.longitud ++;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T acceder(int i) throws IllegalArgumentException {
-      //Aquí va tu código
-      if(this.longitud < i || i < 0){
-        throw new IllegalArgumentException("Índice no válido"); 
-      }
-      
-      Nodo nodoActual = this.cabeza;
-      for(int j=0 ; j < i; j++){
-        nodoActual = nodoActual.siguiente;
-      }
+        if(this.longitud <= i || i < 0){
+            throw new IllegalArgumentException("Índice no válido");
+        }
 
-      return nodoActual.elemento;
+        Nodo nodoActual = this.cabeza;
+        for(int j = 0; j < i; j++){
+            nodoActual = nodoActual.siguiente;
+        }
+
+        return nodoActual.elemento;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean buscar(T elemento) {
-      //Aquí va tu código
-      Nodo nodoActual = this.cabeza;
+        Nodo nodoActual = this.cabeza;
 
-      while (nodoActual != null) {
-          if (nodoActual.elemento.equals(elemento)) {
-              return true;
-          }
-          nodoActual = nodoActual.siguiente;
-      }
-      return false; 
+        while (nodoActual != null) {
+            if (nodoActual.elemento.equals(elemento)) {
+                return true;
+            }
+            nodoActual = nodoActual.siguiente;
+        }
+        return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void eliminar(int i) {
-      if (i < 0 || i >= this.longitud ) {
-          throw new IllegalArgumentException("Índice inválido");
-      }
-  
-      Nodo nodoActual = this.cabeza;
-      Nodo nodoAnterior = null;
-  
-      for (int j = 0; j < i; j++) {
-          nodoAnterior = nodoActual;
-          nodoActual = nodoActual.siguiente;
-      }
-  
-      if (nodoAnterior == null) {
-          // Si el nodo a eliminar es la cabeza
-          this.cabeza = nodoActual.siguiente;
-      } else {
-          nodoAnterior.siguiente = nodoActual.siguiente;
-          if (nodoActual.siguiente == null) {
-              // Si el nodo a eliminar es el rabo
-              this.rabo = nodoAnterior;
-          }
-      }
-  
-      this.longitud--;
+        if (i < 0 || i >= this.longitud ) {
+            throw new IllegalArgumentException("Índice inválido");
+        }
+
+        Nodo nodoActual = this.cabeza;
+        Nodo nodoAnterior = null;
+
+        for (int j = 0; j < i; j++) {
+            nodoAnterior = nodoActual;
+            nodoActual = nodoActual.siguiente;
+        }
+
+        if (nodoAnterior == null) {
+            // Si el nodo a eliminar es la cabeza
+            this.cabeza = nodoActual.siguiente;
+        } else {
+            nodoAnterior.siguiente = nodoActual.siguiente;
+            if (nodoActual.siguiente == null) {
+                // Si el nodo a eliminar es el rabo
+                this.rabo = nodoAnterior;
+            }
+        }
+
+        this.longitud--;
     }
-  
-  
+
+
     public int darLongitud() {
-      //Aquí va tu código
-      return this.longitud;
+        return this.longitud;
     }
 
     /**

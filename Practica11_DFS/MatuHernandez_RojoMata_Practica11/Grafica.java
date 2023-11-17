@@ -6,6 +6,7 @@ public class Grafica<T> {
         public String identificador;
         public T elemento;
         public boolean visitado;
+        public boolean pendiente;
 
         /**
          * Constructor de la clase Vertice. Crea un nuevo vértice con el identificador y
@@ -47,6 +48,15 @@ public class Grafica<T> {
         }
 
         /**
+         * Obtiene el estado actual de la propiedad "pendiente" del vértice.
+         *
+         * @return Valor actual de la propiedad "pendiente".
+         */
+        public boolean darPendiente() {
+            return this.pendiente;
+        }
+
+        /**
          * Modifica el identificador del vértice.
          *
          * @param nuevoIdentificador Nuevo identificador del vértice.
@@ -74,6 +84,15 @@ public class Grafica<T> {
         }
 
         /**
+         * Modifica el estado de la propiedad "pendiente" del vértice.
+         *
+         * @param nuevoPendiente Nuevo valor para la propiedad "pendiente".
+         */
+        public void modificarPendiente(boolean nuevoPendiente) {
+            this.pendiente = nuevoPendiente;
+        }
+
+        /**
          * Devuelve una representación en cadena del vértice en el formato
          * "<identificador, elemento, visitado>".
          *
@@ -86,6 +105,8 @@ public class Grafica<T> {
                     this.elemento.toString() +
                     ", " +
                     Boolean.toString(this.visitado) +
+                    ", " +
+                    Boolean.toString(this.pendiente) +
                     ">";
         }
     }
@@ -129,7 +150,7 @@ public class Grafica<T> {
          * @param nuevoU Nuevo identificador del primer vértice.
          */
         public void modificarU(String nuevoU) {
-            this.u = u;
+            this.u = nuevoU;
         }
 
         /**
@@ -138,7 +159,7 @@ public class Grafica<T> {
          * @param nuevoV Nuevo identificador del segundo vértice.
          */
         public void modificarV(String nuevoV) {
-            this.v = v;
+            this.v = nuevoV;
         }
 
         /**
@@ -479,41 +500,58 @@ public class Grafica<T> {
     }
 
     /**
+     * Modifica el estado de la propiedad "pendiente" de un vértice específico en la
+     * gráfica.
+     *
+     * @param identificador  Identificador del vértice cuya propiedad "pendiente" se
+     *                       modificará.
+     * @param nuevoPendiente Nuevo valor para la propiedad "pendiente".
+     * @throws Exception Si el vértice con el identificador dado no existe en la
+     *                   gráfica.
+     */
+    public void modificarPendienteVertice(String identificador, boolean nuevoPendiente) throws Exception {
+        if (this.buscarVertice(identificador) == false) {
+            throw new Exception("El vertice no existe.");
+        } else {
+            Vertice v = this.darVertice(identificador);
+            v.modificarPendiente(nuevoPendiente);
+        }
+    }
+
+    /**
      * Implementa el algoritmo de búsqueda en amplitud (BFS) a partir de un vértice
      * dado.
      *
      * @param s Identificador del vértice de inicio.
      * @throws Exception Si el vértice de inicio no existe en el grafo.
      */
-    public void algoritmoBFS(String s) throws Exception {
+    public void algoritmoDFS(String s) throws Exception {
         for (Vertice coso : this.vertices) {
             Vertice v = darVertice(coso.identificador);
             v.modificarVisitado(false);
+            v.modificarPendiente(false);
         }
 
-        Cola<String> colaVisitados = new Cola<>();
-        colaVisitados.encolar(s);
+        Pila<String> pilaVisitados = new Pila<>();
+        pilaVisitados.apilar(s);
+        modificarPendienteVertice(s, true);
 
-        while (!colaVisitados.esVacia()) {
-            String u = colaVisitados.darElementoInicio();
-            colaVisitados.desencolar();
+        while (!pilaVisitados.esVacia()) {
+            String u = pilaVisitados.darElementoCima();
+            pilaVisitados.desapilar();
             LinkedList<String> adj_u = darVecindad(u);
 
             while (!adj_u.isEmpty()) {
                 String v = adj_u.getFirst();
                 adj_u.removeFirst();
                 Vertice w = darVertice(v);
-
-                // Cambiado: Verificar si el vértice no está visitado
-                if (!w.darVisitado()) {
-                    colaVisitados.encolar(v);
-                    // Cambiado: Marcar el vértice como visitado
-                    w.modificarVisitado(true);
+                if (w.darVisitado() == false && w.darPendiente() == false) {
+                    pilaVisitados.apilar(v);
+                    modificarPendienteVertice(v, true);
                 }
             }
             // Mantenido: Marcar el vértice actual como visitado
             modificarVisitadoVertice(u, true);
         }
     }
-
 }

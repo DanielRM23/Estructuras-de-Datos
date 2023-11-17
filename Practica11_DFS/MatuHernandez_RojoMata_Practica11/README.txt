@@ -1,9 +1,9 @@
-# Práctica 10, Implementación del método BFS
+# Práctica 11, Implementación del método DFS
 
 # Matú Hernández Diana
 # Rojo Mata Daniel
 
-Implementación en Java del método BFS utilizando la EDD cola y la EDD 
+Implementación en Java del método DFS utilizando la EDD pila y la EDD 
 Gráfica.
 
 ## Compilación y Ejecución
