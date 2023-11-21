@@ -1,3 +1,5 @@
+package edd.practica_nueve;
+
 import java.util.LinkedList;
 
 public class Grafica<T> {
@@ -161,8 +163,7 @@ public class Grafica<T> {
     private int tamano;
 
     /**
-     * Constructor de la clase Grafica. Inicializa una nueva gráfica vacía sin
-     * vértices
+     * Constructor de la clase Grafica. Inicializa una nueva gráfica vacía sin vértices
      * ni aristas.
      */
     public Grafica() {
@@ -302,29 +303,25 @@ public class Grafica<T> {
      *                   mensaje indicando el error.
      */
     public void eliminarVertice(String identificador) throws Exception {
-        // Busco el vértice
-        Vertice verticeAEliminar = null;
-        for (Vertice vertice : vertices) {
-            if (vertice.darIdentificador().equalsIgnoreCase(identificador)) {
-                verticeAEliminar = vertice;
-                break;
-            }
+        if( this.buscarVertice( identificador ) == false ) {
+            throw new Exception( "El vertice no existe." );
         }
-        // Si encuentro el vértice con el identificador dado
-        if (verticeAEliminar != null) {
-            // Creo una nueva lista de aristas sin las que inciden en el vértice a eliminar
-            LinkedList<Arista> nuevasAristas = new LinkedList<>();
-            for (Arista arista : aristas) {
-                if (!arista.darU().equalsIgnoreCase(identificador) && !arista.darV().equalsIgnoreCase(identificador)) {
-                    nuevasAristas.add(arista);
+        else {
+            int i = 0;
+            for( Vertice v : this.vertices ) {
+                if( v.darIdentificador().equals( identificador ) ) {
+                    break;
+                }
+                else {
+                    i++;
                 }
             }
-            // Actualizo la lista de aristas y remuevo el vértice de la lista de vértices
-            aristas = nuevasAristas;
-            vertices.remove(verticeAEliminar);
-        } else {
-            // No encontré el vértice en la gráfica
-            throw new Exception("No se encontró el vértice");
+            LinkedList<String> vecinos = this.darVecindad( identificador );
+            this.vertices.remove( i );
+            this.orden--;
+            for( String v : vecinos ) {
+                this.eliminarArista( identificador, v );
+            }
         }
     }
 
@@ -436,30 +433,6 @@ public class Grafica<T> {
             return verticeBuscado;
         } else {
             throw new Exception("No se encontró el vértice");
-        }
-    }
-
-    public void algoritmoBFS(String s) {
-        for (Vertice coso : this.vertices) {
-            Vertice v = darVertice(coso.identificador);
-            v.modificarVisitado(false);
-        }
-        Cola colaVisitados = new Cola<>();
-        colaVisitados.encolar(s);
-        while (!colaVisitados.esVacia()) {
-            String u = (String) colaVisitados.darElementoInicio();
-            colaVisitados.desencolar();
-            LinkedList<String> adj_u = darVecindad(u);
-            while (!adj_u.isEmpty()) {
-                String v = adj_u.getFirst();
-                adj_u.removeFirst();
-                Vertice w = darVertice(v);
-                if (darVertice(w.identificador).equals(false)) {
-                    colaVisitados.encolar(v);
-                }
-
-            }
-            modificarVisitadoVertice(u, true);
         }
     }
 
