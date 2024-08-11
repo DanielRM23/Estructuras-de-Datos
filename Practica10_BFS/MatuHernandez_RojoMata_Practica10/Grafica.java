@@ -496,34 +496,33 @@ public class Grafica<T> {
      * @throws Exception Si el vértice de inicio no existe en el grafo.
      */
     public void algoritmoBFS(String s) throws Exception {
-            for (Vertice coso : this.vertices) {
-                Vertice v = darVertice(coso.identificador);
-                v.modificarVisitado(false);
-            }
-
-            Cola<String> colaVisitados = new Cola<>();
-            colaVisitados.encolar(s);
-
-            while (!colaVisitados.esVacia()) {
-                String u = colaVisitados.darElementoInicio();
-                colaVisitados.desencolar();
-                LinkedList<String> adj_u = darVecindad(u);
-
-                while (!adj_u.isEmpty()) {
-                    String v = adj_u.getFirst();
-                    adj_u.removeFirst();
-                    Vertice w = darVertice(v);
-
-                    // Cambiado: Verificar si el vértice no está visitado
-                    if (!w.darVisitado()) {
-                        colaVisitados.encolar(v);
-                        // Cambiado: Marcar el vértice como visitado
-                        w.modificarVisitado(true);
-                    }
-                }
-                // Mantenido: Marcar el vértice actual como visitado
-                modificarVisitadoVertice(u, true);
-            }
+        // Verificar si el vértice de inicio existe
+        Vertice inicio = darVertice(s);
+        if (inicio == null) {
+            throw new Exception("El vértice de inicio no existe en el grafo.");
         }
 
+        // Inicializar todos los vértices como no visitados
+        for (Vertice coso : this.vertices) {
+            coso.modificarVisitado(false);
+        }
+
+        Cola<String> colaVisitados = new Cola<>();
+        colaVisitados.encolar(s);
+        inicio.modificarVisitado(true); // Marcar el vértice de inicio como visitado
+
+        while (!colaVisitados.esVacia()) {
+            String u = colaVisitados.darElementoInicio();
+            colaVisitados.desencolar();
+            LinkedList<String> adj_u = darVecindad(u);
+
+            for (String v : adj_u) { // Mejor uso del bucle for-each
+                Vertice w = darVertice(v);
+                if (!w.darVisitado()) {
+                    colaVisitados.encolar(v);
+                    w.modificarVisitado(true); // Marcar al vértice como visitado cuando se encola
+                }
+            }
+        }
     }
+}
